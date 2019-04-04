@@ -1,0 +1,9 @@
+#include <stdio.h>
+#include <string.h> //includes character string libraries
+int main()
+{
+    char x;
+    scanf("%c", &x); //reads the character inputted
+    printf("%c\n", x); //prints the character inputted
+    return 0;
+}
