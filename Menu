@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char x;//menu navigation variable
+    char LA[122];//stands for letter array, let's me use letters
+    char output;
+    printf("select an option\n");
+    printf("a)Encrypt Ceaser\n");
+    printf("b)Encrypt Substitution\n");
+    printf("c)Decrypt Ceaser with key\n");
+    printf("d)Decrypt Substitution with key\n");
+    printf("e)Decrypt Ceaser w/o key\n");
+    printf("f)Decrypt Substitution w/o key\n"); //brings up a menu
+    scanf("%c",  &x); //reads user input
+    switch(x){ //runs the selected code based on user input
+            case'a':
+        break;
+            case'b':
+        break;
+            case'c':
+        break;
+            case'd':
+        break;
+            case'e':
+        break;
+            case'f':
+        break;
+    }
+    printf("something something here's your result %c\n",   &output); //prints the output. Keys will be in the individual code blocks
+
+    return 0;
+}
