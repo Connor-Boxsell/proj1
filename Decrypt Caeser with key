@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char message[200], ch;
+    int key, ch2=0;
+   
+    printf("Enter message to decrypt: \n"); //the code is almost identical for decrypting a ceaser cypher
+    fgets(message, sizeof(message), stdin); 
+    printf("Enter cypher key: \n");
+    scanf("%d", &key); 
+    
+    if(key>26){
+        key=key%26;
+    } 
+        
+        while(message[ch2] != '\0' &&  strlen(message)-1>ch2){ 
+            
+            if(message[ch2]>='a' && message[ch2]<='z'){
+                message[ch2]=message[ch2]- key; //instead of adding the key, it subtracts the key
+                if(message[ch2]<'a'){ 
+                    message[ch2]=message[ch2]+26; //adds 26 instead because letter can go under instead of over
+                }
+            }
+            
+            if(message[ch2]>='A' && message[ch2]<='Z'){
+                message[ch2]=message[ch2]- key; 
+                if(message[ch2]<'A'){ 
+                    message[ch2]=message[ch2]+26; //again, does the same thing but for uppercase letters
+                }
+            }
+            
+            ch2++;
+            
+        }
+        printf("Your decrypted message is: %s\n", &message);
+    return 0;
+    
+}
