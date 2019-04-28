@@ -1,0 +1,180 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char x, message[500], key[26], LA[26]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //the only necessary character and arrays when using keys
+    int ch=0, ch2=0, keyc; //the only necessary integers when using keys
+    char dm[500], nokey[26]="ETAOINSRHLDCUMFPGWYBVKXJQZ"; //all the extra stuff I needed for no key
+    int ch3=0, ch4=0, ch5=0, LA2[26]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, a=0;
+                    //LA2 is a parallel int array for the letter array. Whenever a letter appears, the code finds the relevant pointer and adds one to the value
+    
+    printf("Select an option\n");
+    printf("A)Encrypt Ceaser\n");
+    printf("B)Encrypt Substitution\n");
+    printf("C)Decrypt Ceaser with key\n");
+    printf("D)Decrypt Substitution with key\n");
+    printf("E)Decrypt w/o key\n"); //brings up an options menu
+    scanf("%c",  &x); //reads user input
+    
+    switch(x){ //runs the selected code based on user input
+            
+            case'A':
+            
+                printf("Enter cypher key: \n");
+                scanf("%d", &keyc); //gets the key for the cipher
+                printf("Enter message to encrypt: \n");
+                scanf("%s",  &message); //gets the message to be decoded
+                
+                if(keyc>26){
+                    keyc=keyc%26;
+                }//If the inputted key is greater than 26, gets the remainder to use as the actual key. 
+        
+                while(strlen(message)>ch2){ // while the message at ch2 doesn't equal the enter character and the stringlength is greater than ch2 (which increments every loop)
+                                                                    //basically every letter in the string
+                    if(message[ch2]>='A' && message[ch2]<='Z'){//checks if the character is an uppercase letter
+                        
+                        message[ch2]=message[ch2]+ keyc; //shifts the letter up by the key
+                        
+                        if(message[ch2]>'Z'){ //checks if the letter has gone above Z
+                            
+                            message[ch2]=message[ch2]-26; //if it has, subtract 26 to wrap it back around
+                        }
+                    }
+            
+                    ch2++; //increments because I didn't like for loops at the start
+            
+                }
+        
+        break;
+            case'B':
+            
+                printf("Enter message to encrypt: \n"); 
+                scanf("%s", &message); 
+                printf("Enter cypher key: \n");
+                printf("Cypher key must be in format ABCD...\n");
+                scanf("%s",  &key);
+    
+                while(strlen(message)>ch2){ //makes the code check every letter in the array
+                    
+                    if(message[ch2]>='A' && message[ch2]<='Z'){ //checks if the letter is not a space
+                        
+                        while(message[ch2] != LA[ch]){ //by forcing the loop, the program searches for the matching letter in LA.
+                                                      //when it is found, the program can advance
+                            ch++; //if the tested letter is not correct, it moves up to the next letter and tries again
+                        }
+                        message[ch2] = key[ch]; //makes the letter at ch2 in the message equal to the letter at ch in the key
+                        ch=0; //makes ch 0 again for the next loop
+                    }
+                    ch2++; //increments to check the value of the next letter in the message
+                } //when the loop has gone through every letter, the message will be encrypted
+    
+        break;
+            case'C':
+                printf("Enter message to decrypt: \n"); //the code is almost identical for decrypting a ceaser cypher
+                scanf("%s",   &message); 
+                printf("Enter cypher key: \n");
+                scanf("%d", &keyc); 
+    
+                if(keyc>26){
+                    
+                    keyc=keyc%26;
+                } 
+        
+                while(strlen(message)>ch2){ 
+            
+                    if(message[ch2]>='A' && message[ch2]<='Z'){
+                        
+                        message[ch2]=message[ch2]- keyc; 
+                        
+                        if(message[ch2]<'A'){ //a few letters and numbers are changed here to shift the numbers down, and if they go below A, add 26
+                            
+                            message[ch2]=message[ch2]+26; 
+                        }
+                    }
+                    ch2++;
+                }
+        break;
+            case'D':
+                printf("Enter message to decrypt: \n"); //decryption code will be almost identical to encryption code
+                scanf("%s", &message); 
+                printf("Enter cypher key: \n");
+                printf("Cypher key must be in format ABCD...abcd...\n");
+                scanf("%s", &key);
+    
+                while(strlen(message)>ch2){ 
+        
+                    if(message[ch2]>='A' && message[ch2]<='Z'){
+                        
+                        while(message[ch2] != key[ch]){ 
+                            
+                            ch++; 
+                        }
+                        message[ch2] = LA[ch]; //key and LA in line 113 and LA in line 110 are swapped because it is now looking for the letter in the key and replacing it with the letter in the same position in the letter array
+                        ch=0;
+                    }
+                    ch2++; 
+        
+                }    
+        break;
+            case'E':
+                printf("Enter message to decrypt:\n");
+                printf("This probably won't work by the way\n");
+                scanf("%s", &message); 
+    
+                for(ch2=0; message[ch2] != '\0' && strlen(message)>ch2; ch2++){ //while loop creates a counter for the frequency of every letter
+    
+                    if(message[ch2]>='A' && message[ch2]<='Z'){ //checking if it's a letter
+            
+                        ch=0;
+                        
+                        while(message[ch2] != LA[ch]){ //pretty sure this has to be a while loop because I'm not doing anything
+                
+                            ch++;
+                        }//same loop as in the sub with key codes, stops the code from progressing until it finds the same letter in the letter array
+            
+                        LA2[ch]=LA2[ch] + 1; //when the letters are the same, it goes to that letters position in the int array and ticks it up 1
+                    }
+                }
+                printf("%d\n",  &LA2);
+                for(ch2=0; ch2<=26; ch2++){//loops exactly 26 times to find the frequency of every letter in order
+        
+                    for(ch=0; ch<= 26; ch++){
+           
+                        if(LA2[ch]>=LA2[ch3]){
+               
+                            ch3=ch; //after checking every number, ch3 now points to the largest number and most common letter
+                        }
+                    }
+       
+                    LA2[ch]= -1; //sets the value of the largest number in the array to -1 so in the next loop it finds the second highest and if they are any letters not in the statement it won't change previously decrypted letters
+        
+                    for(ch4=0; message[ch4] != '\0' && strlen(message)>ch4; ch4++){//loop to check every letter in the message
+            
+                        if(message[ch4]>='A' && message[ch4]<='Z'){ //makes sure it's a letter and not a space
+                    
+                            if(message[ch4]==LA[ch]){//checks if the letter being checked is the same as the most common letter
+            
+                                dm[ch4]=nokey[ch5]; //sets the letter to the xth most common letter in the english language (with x being number of loops)
+                            }
+                        }
+                    }
+            
+                    ch5++; //increments to the next most common letter in the english language
+                }
+                a++;
+                
+        break;
+        
+    }
+    if(a==1){
+        printf("Your result is: %s\n",  &dm);
+        printf("Feel free to tell me why this didn't work I'm genuinly curious\n");
+        printf("I was getting 'segmentation fault (core dumped)' for like 3 hours so I gave up on this one a bit\n");
+    }
+    else{
+    printf("something something here's your result %s\n",   &message); //prints the output message
+    }
+    
+    return 0;
+}
