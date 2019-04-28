@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char message[200], key[52], LA[52]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; //message, the key and the letter array
+    int ch=0, ch2=0; //ch2 is the position in the message, ch is the position in the key/letter array
+   
+    printf("Enter message to encrypt: \n"); 
+    fgets(message, sizeof(message), stdin); 
+    printf("Enter cypher key: \n");
+    printf("Cypher key must be in format ABCD...abcd...\n");
+    fgets(key, sizeof(key), stdin);
+    
+    while(message[ch2] != '\0' &&  strlen(message)-1>ch2){ //makes the code check every letter in the array
+        
+        while(message[ch2] != LA[ch]){ //checks if the letter at ch2 in message is the same as the letter in the letter array at ch
+        ch++; //increments and does the loop again until they are equal
+        }
+        message[ch2] = key[ch]; //makes the letter at ch2 in the message equal to the letter at ch in the key
+        ch=0; //makes ch 0 again for the next loop
+        ch2++; //increments to check the value of the next letter in the message
+    } //when the loop has gone through every letter, the message will be encrypted
+    
+    printf("Your encrypted message is: %s\n",   &message);
+   
+    return 0;
+    
+}
