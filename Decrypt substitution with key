@@ -19,9 +19,10 @@ int main()
             ch++; 
             }
             message[ch2] = LA[ch]; //key in line 20 and LA in line 17 are swapped because it is now looking for the letter in the key and replacing it with the letter in the same position in the letter array
-            ch=0; 
-            ch2++; 
-        } 
+         ch=0;
+         }
+         ch2++; 
+        
     }    
     printf("Your decrypted message is: %s\n",   &message);
    
