@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char message[200], key[52], LA[52]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; 
+    int ch=0, ch2=0; 
+   
+    printf("Enter message to decrypt: \n"); //decryption code will be almost identical to encryption code
+    fgets(message, sizeof(message), stdin); 
+    printf("Enter cypher key: \n");
+    printf("Cypher key must be in format ABCD...abcd...\n");
+    fgets(key, sizeof(key), stdin);
+    
+    while(message[ch2] != '\0' &&  strlen(message)-1>ch2){ 
+        
+        if('A'<=message[ch2]<='Z' || 'a'<=message[ch2]<='z'){
+            while(message[ch2] != key[ch]){ 
+            ch++; 
+            }
+            message[ch2] = LA[ch]; //key in line 20 and LA in line 17 are swapped because it is now looking for the letter in the key and replacing it with the letter in the same position in the letter array
+            ch=0; 
+            ch2++; 
+        } 
+    }    
+    printf("Your decrypted message is: %s\n",   &message);
+   
+    return 0;
+    
+} 
