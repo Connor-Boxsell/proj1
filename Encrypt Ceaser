@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char message[200], ch;
+    int key, ch2=0;
+    //ask the user for the plaintext
+    printf("Enter message to encrypt: \n");
+    fgets(message, sizeof(message), stdin); //gets the message to be decoded
+    printf("Enter cypher key: \n");
+    scanf("%d", &key); //gets the key for the cipher
+    
+    if(key>26){
+        key=key%26;
+    }//If the inputted key is greater than 26, gets the remainder to use as the actual key. 
+        
+        while(message[ch2] != '\0' &&  strlen(message)-1>ch2){ // while the message at ch2 doesn't equal the enter character and the stringlength-1 is greater than ch2 (which increments every loop)
+            
+            if(message[ch2]>='a' && message[ch2]<='z'){//checks if the letter at ch2 is lowercase
+                message[ch2]=message[ch2]+ key; //shifts the letter up by the key
+                if(message[ch2]>'z'){ //checks if the letter has gone above z
+                    message[ch2]=message[ch2]-26; //subtracts 26 (letters in the alphabet) to make it loop instead of go above z
+                }
+            }
+            
+            if(message[ch2]>='A' && message[ch2]<='Z'){
+                message[ch2]=message[ch2]+ key; 
+                if(message[ch2]>'Z'){ 
+                    message[ch2]=message[ch2]-26; //does the same thing for uppercase letters
+                }
+            }
+            
+            ch2++;
+            
+        }
+        printf("Your encrypted message is: %s\n", &message);
+    return 0;
+    
+}
